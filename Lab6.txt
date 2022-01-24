@@ -1,0 +1,185 @@
+<html>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>HOTEL MANAGEMENT SYSTEM</title>
+        <link rel="stylesheet" href="contact.css">
+       
+    </head>
+<body>
+    <div class="navigation">
+        <ul>
+            <li><a href="./home.html">Home</a></li>
+            <li><a href="./booking.css">Booking</a></li>
+            <li><a href="./gallery.html">Gallery</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="./feedback.html">feedback</a></li>
+        </ul>
+    </div>
+
+</div>
+<div class="container">
+  <form id="contact" action="" method="post">
+    <h3>Hotel Management Contact Form</h3>
+    <h4>Contact us for customer suport</h4>
+    <div class="modal" id="login-modal" tabindex="-1">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <div class="modal-body">
+                  <h3 class="modal-title">Sign Up</h3>
+                  <p>Register yourself now to get notified for the <strong>#kadakdeals</strong>, free passes and exclusive deals.</p>
+
+                  <form action="/#">
+                      <div class="row">
+                          <div class="col">
+                              <label for="fname">First Name</label>
+                              <div class="input-group mb-2">
+                                  <input type="text" class="form-control" id="fname" oninput="alphaOnly(this)">
+                              </div>
+                          </div>
+
+
+                          <div class="col">
+                              <label for="lname">Last Name</label>
+                              <div class="input-group mb-2">
+                                  <input type="text" class="form-control" id="lname">
+                              </div>
+                          </div>
+
+
+                      </div>
+
+
+                      <label for="dob">Date of Birth</label>
+                      <div class="input-group mb-2">
+                          <input type="text" class="form-control" id="dob" placeholder="09/03/1999">
+                      </div>
+                      <label for="email">Email</label>
+                      <div class="input-group mb-2">
+                          <input type="text" class="form-control" id="email">
+                      </div>
+
+                      <label for="mobile">Mobile</label>
+                      <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text">+91</span>
+                          </div>
+                          <input type="text" class="form-control" id="mobile">
+                      </div>
+                      <label for="refC">Referal(Optional)</label>
+                      <div class="input-group mb-2">
+                          <input type="text" class="form-control" id="refC">
+                      </div>
+
+                      <label for="password">Password</label>
+                      <div class="input-group mb-2">
+                          <input type="password" class="form-control" id="password">
+                      </div>
+                  </form>
+
+                  <div class="row m-0 p-0 justify-content-end">
+                      <button type="button" class="btn btn-secondary m-1" data-dismiss="modal">Skip</button>
+                      <button type="button" class="btn btn-success m-1"
+                          onclick="javascript:signUpProcess()">Proceed</button>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+  <script>
+
+      var fname = document.getElementById('fname')
+      var lname = document.getElementById('lname')
+      var dob = document.getElementById('dob')
+      var email = document.getElementById('email')
+      var mobile = document.getElementById('mobile')
+      var ref = document.getElementById('refC')
+      var pass = document.getElementById('password')
+
+      mobile.oninput = function () {
+          if(mobile.value.length>10) mobile.value=mobile.value.slice(0,10)
+          var regex = /[^0-9]/gi;
+          mobile.value = mobile.value.replace(regex, "");
+      }
+
+      fname.oninput=lname.oninput= function () {
+          var regex = /[^a-z]/gi;
+          fname.value = fname.value.replace(regex, "");
+          lname.value = lname.value.replace(regex, "");
+      }
+      
+      function signUpProcess() {
+          var fname = document.getElementById('fname')
+          var lname = document.getElementById('lname')
+          var dob = document.getElementById('dob')
+          var email = document.getElementById('email')
+          var mobile = document.getElementById('mobile')
+          var ref = document.getElementById('refC')
+          var pass = document.getElementById('password')
+          //validate
+          if (
+              !fname ||
+              !lname ||
+              !dob ||
+              !email ||
+              !mobile ||
+              !pass
+          ) {
+              alert("All Fields are mandatory except \"Referal\"")
+              return
+          }
+
+          var passReg = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[~`!@#$%^_+={}|:"<>,.?])[A-Za-z\d@$!%*?&]{8,}$/
+          if (!passReg.test(pass.value)) {
+              alert("Password must contain atleast 1 Upper Case, 1 Lower Case, 1 Digit, 1 Special Character and It should be minimum 8 characters.")
+              return
+          }
+          var refReg = /^DM(?=.*[A-Z]){8,10}$/
+          if (ref.value && !refReg.test(ref.value)) {
+              alert("Invalid Referal Code")
+              return
+          }
+          var mobReg = /[0-9]{10,10}/
+          if (!mobReg.test(mobile.value)) {
+              alert("Invalid Mobile Number")
+              return
+          }
+          var emailReg = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/
+          if (!emailReg.test(email.value)) {
+              alert("Invalid Email")
+              return
+          }
+          var dateReg = /^(0[1-9]|1[0-9]|2[0-9]|3[0-1])(\/)(0[1-9]|1[0-2])(\/)(19[0-9]{2}|20[0-2]{1}[0-9]{1})$/gm
+          if (!dateReg.test(dob.value)) {
+              alert("Invalid Date of Birth")
+              return
+          }
+          var nameReg = /([a-z]*)/gi
+          if (!nameReg.test(fname.value)) {
+              alert("Name cannot contain numbers")
+              return
+          }
+          if (!nameReg.test(lname.value)) {
+              alert("Name cannot contain numbers")
+              return
+          }
+          alert("Registered Successfully")
+      }
+  </script>
+  <script>
+      document.getElementById("section-1").onwheel = function (event) {
+          if (event.deltaY >= 0) {
+              document.getElementById("header").style.display = "none";
+          } else {
+              document.getElementById("header").style.display = "flex";
+          }
+      };
+  </script>
+</body>
+</html>
+    
+    <p class="copyright">Designed by <a href="https://colorlib.com" target="_blank" title="hotel-management">supports</a></p>
+  </form>
+</div>
